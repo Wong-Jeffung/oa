@@ -7,6 +7,7 @@ import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.plugin.activerecord.tx.Tx;
 import com.pointlion.mvc.admin.sys.dataauth.SysDataAuthTranslator;
 import com.pointlion.mvc.common.model.OaApplySeal;
+import com.pointlion.plugin.shiro.ShiroKit;
 
 public class OaApplySealService{
 	public static final OaApplySealService me = new OaApplySealService();

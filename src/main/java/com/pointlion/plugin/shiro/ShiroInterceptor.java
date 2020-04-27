@@ -22,6 +22,9 @@ import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 import com.jfinal.kit.StrKit;
 
+/**
+ * shiro全局拦截器，对存在五个shiro注解的action（接口），进行处理handle处理，具体注解可看ShiroPlugin定义
+ */
 public class ShiroInterceptor implements Interceptor {
 
 	public void intercept(Invocation ai) {

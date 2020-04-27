@@ -6,25 +6,62 @@
 		                <h3 class="panel-title" style="text-align: right;">
 		                	#@installPJaxGoBackBtn()
 		                	#@installFlowHisBtn(defId,procInsId)
-		                	#@installAttachment(o?o.id:'')
+							<!--不用附件功能-->
+		                	<!--#@installAttachment(o?o.id:'')-->
 		                </h3>
 		            </div>
-					#@buildFormPanelContainer("公章申请单","/WEB-INF/admin/oa/apply/seal/editForm.html")
+					#@buildFormPanelContainer("请假申请单","/WEB-INF/admin/oa/apply/leave/editForm.html")
 		            #@buildWorkFlowHisTable(procInsId,hislist)
 		        </div>
 		    </div>
 	</div>
 	<script>
-		function save(){
-			var data = common_ajax.ajaxFunc("/admin/oa/apply/seal/save", $('#editForm').serialize(), "json", null);
-			if(data.success){
-				pointLion.alertMsg("保存成功!" , "success" , "small" , function(){
-					location.href = ctx+'/admin/oa/apply/seal/getApplyListPage';//跳转到列表页
-				},data);
-			}else{
-				pointLion.alertMsg(data.message , "success" , "small" , function(){
-					$(".btn").removeAttr("disabled");
-				},data);
-			}
-		}
+        function save(){
+            var data = common_ajax.ajaxFunc("/admin/oa/apply/leave/save", $('#editForm').serialize(), "json", null);
+            if(data.success){
+                pointLion.alertMsg("保存成功!" , "success" , "small" , function(){
+                    location.href = ctx+'/admin/oa/apply/leave/getApplyListPage';//跳转到列表页
+                },data);
+            }else{
+                pointLion.alertMsg(data.message,"danger",null,function(){
+                    $(".btn").removeAttr("disabled");
+                },data);
+            }
+        }
+
+        $(document).ready(function() {
+            $('#editForm').bootstrapValidator({
+                fields: {
+                    "oaApplyLeave.period": {
+                        validators: {
+                            notEmpty: {
+                                message: '*请假天数不能为空'
+                            },
+                            lessThan: {
+                                inclusive:true,
+                                value: 365,
+                                message: '*请输入小于365的数字'
+                            }
+                        }
+                    },
+                    "oaApplyLeave.start_time":{
+                        validators: {
+                            notEmpty: {
+                                message: '*开始时间不能为空'
+                            }
+                        }
+                    },
+                    "oaApplyLeave.end_time":{
+                        validators: {
+                            notEmpty: {
+                                message: '*结束时间不能为空'
+                            }
+                        }
+                    }
+                }
+            }).on("success.form.bv", function (e) {
+				save();
+                return false;//阻止表单跳转
+            });
+        });
 	</script>

@@ -38,6 +38,7 @@ public class _MappingKit {
 		arp.addMapping("oa_apply_custom", "id", OaApplyCustom.class);//自定义流程
 		arp.addMapping("oa_apply_seal", "id", OaApplySeal.class);//用章申请
 		arp.addMapping("oa_flow_carbon_c", "id", OaFlowCarbonC.class);//流程抄送
+		arp.addMapping("oa_apply_leave","id",OaApplyLeave.class);//请假申请
 		//资产管理的
 	}
 }

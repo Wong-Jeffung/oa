@@ -1,96 +1,82 @@
 <form id="editForm" class="panel-body form-horizontal form-padding">
-						<input type="hidden"  name="#(formModelName).id" class="form-control" value="#(o?o.id:'')">
-			                <div class="form-group">
-			                    <label class="col-md-2 control-label">申请人</label>
-			                    <div class="col-md-4">
-			                    	<input type="hidden"  name="#(formModelName).userid" class="form-control"  value="#if(o)#(o.userid)#else#(user.id)#end">
-			                        <input type="text"  name="#(formModelName).applyer_name" class="form-control"  value="#if(o)#(o.applyer_name)#else#(user.name)#end" readonly>
-			                    </div>
-			                    <label class="col-md-1 control-label">部门</label>
-			                    <div class="col-md-4">
-			                        <input type="hidden"  name="#(formModelName).org_id" class="form-control"  value="#if(o)#(o.org_id)#else#(org.id)#end">
-			                        <input type="text"  name="#(formModelName).org_name" class="form-control"  value="#if(o)#(o.org_name)#else#(org.name)#end" readonly>
-			                    </div>
-			                </div>
-			                <div class="form-group">
-			                    <label class="col-md-2 control-label">公章名称</label>
-			                    <div class="col-md-9">
-			                        <input type="text"  name="#(formModelName).seal_name" class="form-control"  value="#(o?o.seal_name:'')" #if(view=='detail') readonly #end>
-			                        <small class="help-block">请输入公章名称</small>
-			                    </div>
-			                </div>
-			                <div class="form-group">
-			                    <label class="col-md-2 control-label">用途</label>
-			                    <div class="col-md-9">
-			                        <input type="text"  name="#(formModelName).title" class="form-control"  value="#(o?o.title:'')" #if(view=='detail') readonly #end>
-			                        <small class="help-block">请输入用途</small>
-			                    </div>
-			                </div>
-							<div class="form-group">
-								<label class="col-md-2 control-label">上传图片demo</label>
-								<div class="col-md-9">
-									<div id="filePicker" style="float: left;margin-top: 10px;margin-right: 10px;">上传</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-2 control-label">图片预览</label>
-								<div class="col-md-9">
-									<input name="#(formModelName).img_url" id="formImgUrl" type="hidden" value="#(o?o.img_url:'')" />
-									<img id="imgUrl" src="#(ctx)/#(o?o.img_url:'')" width="100px">
-								</div>
-							</div>
-			                <div class="form-group">
-			                    <label class="col-md-2 control-label">申请原因以及意见</label>
-			                    <div class="col-md-9">
-			                        <textarea rows="8" name="#(formModelName).des" class="form-control" #if(view=='detail') readonly #end>#(o?o.des:'')</textarea>
-			                        <small class="help-block">请输入申请意见</small>
-			                    </div>
-			                </div>
-			                <!-- <div class="form-group">
-			                    <label class="col-md-2 control-label">上级领导批示</label>
-			                    <div class="col-md-9">
-			                        <textarea rows="8" name="#(formModelName).leader_message" class="form-control" readonly>#(o?o.leader_message:'')</textarea>
-			                        <small class="help-block">请输入领导批示</small>
-			                    </div>
-			                </div>
-			                <div class="form-group">
-			                    <label class="col-md-2 control-label">领导批示</label>
-			                    <div class="col-md-9">
-			                        <textarea rows="8" name="#(formModelName).leader2_message" class="form-control" readonly>#(o?o.leader2_message:'')</textarea>
-			                        <small class="help-block">请输入领导批示</small>
-			                    </div>
-			                </div> -->
-		                	#if(view=='edit')
-				            	<div class="panel-footer">
-				                    <div class="row">
-				                        <div class="col-sm-8 col-sm-offset-3">
-				                            <button class="btn btn-warning" type="reset">重置</button>
-				                            <button class="btn btn-primary" type="submit" >保存</button>
-				                        </div>
-				                    </div>
-				                </div>
-							#else
+    <input type="hidden"  name="#(formModelName).id" class="form-control" value="#(o?o.id:'')">
+        <div class="form-group">
+            <label class="col-md-2 control-label">申请人</label>
+            <div class="col-md-4">
+                <input type="hidden"  name="#(formModelName).applicant_id" class="form-control"  value="#if(o)#(o.applicant_id)#else#(user.id)#end">
+                <input type="text"  name="#(formModelName).applicant_name" class="form-control"  value="#if(o)#(o.applicant_name)#else#(user.name)#end" readonly>
+            </div>
+            <label class="col-md-1 control-label">部门</label>
+            <div class="col-md-4">
+                <input type="hidden"  name="#(formModelName).org_id" class="form-control"  value="#if(o)#(o.org_id)#else#(org.id)#end">
+                <input type="text"  name="#(formModelName).org_name" class="form-control"  value="#if(o)#(o.org_name)#else#(org.name)#end" readonly>
+            </div>
+        </div>
+        #@installDctSelectBtn("请假类型","OA_APPLY_LEAVE_TYPE","type","type_name",o?o.type:"",o?o.type_name:"",view)
+        <div class="form-group">
+            <label class="col-md-2 control-label">开始时间</label>
+            <div class="input-group date form_datetime col-md-4" style="float:left">
+                <input type="text" id="startTime" name="#(formModelName).start_time" class="form-control" value="#(o?o.start_time:'')" data-bv-field="#(formModelName).start_time" #if(view=='detail') readonly #end>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                <small class="help-block" data-bv-validator="notEmpty" data-bv-for="#(formModelName).start_time" data-bv-result="NOT_VALIDATED" style="display: none;">*开始时间不能为空</small></div>
+            <label class="col-md-1 control-label">结束时间</label>
+            <div class="input-group date form_datetime col-md-3" style="float:left">
+                <input type="text" id="endTime" name="#(formModelName).end_time" class="form-control" value="#(o?o.end_time:'')" data-bv-field="#(formModelName).end_time" #if(view=='detail') readonly #end>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                <small class="help-block" data-bv-validator="notEmpty" data-bv-for="#(formModelName).end_time" data-bv-result="NOT_VALIDATED" style="display: none;">*结束时间不能为空</small></div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">天数</label>
+            <div class="col-md-2">
+                <input type="text" id="period" name="#(formModelName).period" class="form-control" value="#(o?o.period:'')" #if(view=='detail') readonly #end data-bv-field="#(formModelName).period">
+                <small class="help-block" data-bv-validator="notEmpty" data-bv-for="#(formModelName).period" data-bv-result="NOT_VALIDATED" style="display: none;">*请假天数不能为空</small><small class="help-block" data-bv-validator="lessThan" data-bv-for="#(formModelName).period" data-bv-result="NOT_VALIDATED" style="display: none;">*请输入小于365的数字</small></div>
+            <label class="control-label" style="text-align:left;">天</label>
+            <!--			                    <label class="control-label" style="text-align:left;color:red;">（剩余可用年假：-69天）</label>-->
+            <!--<input type="hidden" value="-69" id="yearHoliday">-->
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">请假原因</label>
+            <div class="col-md-9">
+                <textarea rows="8" name="#(formModelName).reason" class="form-control" #if(view=='detail') readonly #end>#(o?o.reason:'')</textarea>
+                <!--<small class="help-block">请输入请假原因</small>-->
+            </div>
+        </div>
+        #if(view=='edit')
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-3">
+                        <button class="btn btn-warning" type="reset">重置</button>
+                        <button class="btn btn-primary" id = "submit_btn" type="submit" >保存</button>
+                    </div>
+                </div>
+            </div>
+        #else
 
-				            #end
-		            </form>
+        #end
+</form>
 <script>
-	$(document).ready(function() {
-		pointLion.initUploader("/admin/upload/upload",function(data){
-			if(data.success){
-				pointLion.alertMsg(data.message,"success",null,null);
-				var relativePath = data.data.path+data.data.filename;
-				$("#imgUrl").attr("src","#(ctx)/"+relativePath);
-				$("#formImgUrl").val(relativePath);
-			}else{
-				pointLion.alertMsg(data.message,"danger",null,null);
-			}
-		});
-		$('#editForm').bootstrapValidator({
-			fields: {
-			}
-		}).on("success.form.bv", function (e) {
-			save();
-			return false;//阻止表单跳转
-		});
-	});
+    $(document).ready(function() {
+        $(".form_datetime").datepicker({format: 'yyyy-mm-dd',weekStart: 1,todayBtn:  1,autoclose: 1,language:  'zh-CN',todayHighlight: 1,forceParse: 0,showMeridian: 1}).on('changeDate',function(){
+            var startTime = $("#startTime").val();
+            var endTime = $("#endTime").val();
+            if(startTime&&endTime){
+                if(!dateUtil.compareCalendar(startTime,endTime)){
+                    pointLion.alertMsg("开始时间大于结束时间","danger",null,null);
+                    //都禁用的话后面选对时间后有些按钮还是无法点击
+                    // $("#editForm .btn").attr("disabled","disabled");
+                    $("#submit_btn").attr("disabled","disabled");
+                }else{
+                    resetVali();
+                }
+            }
+            var total = dateUtil.timeSubtract(startTime,endTime);
+            var period = parseInt(total / (24*60*60))+1;//计算整数天数
+            $("#period").val(period);
+        });
+    });
+    function resetVali(){
+        if(!$("#editForm").data('bootstrapValidator').isValid()){
+            $("#editForm").data('bootstrapValidator').resetForm();
+        }
+    }
 </script>

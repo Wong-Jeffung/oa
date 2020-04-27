@@ -2,6 +2,7 @@ package com.pointlion.config.routes;
 
 import com.jfinal.config.Routes;
 import com.pointlion.mvc.admin.oa.apply.custom.OaApplyCustomController;
+import com.pointlion.mvc.admin.oa.apply.leave.OaApplyLeaveController;
 import com.pointlion.mvc.admin.oa.apply.seal.OaApplySealController;
 import com.pointlion.mvc.admin.oa.common.CommonBusinessController;
 import com.pointlion.mvc.admin.oa.notice.NoticeController;
@@ -35,6 +36,7 @@ public class OARoutes extends Routes{
 		add("/admin/oa/workflow/flowtask",FlowTaskController.class,"/workflow/flowtask");//处理通用任务
 		add("/admin/oa/apply/custom",OaApplyCustomController.class,"/apply/custom");//自定义流程
 		add("/admin/oa/apply/seal",OaApplySealController.class,"/apply/seal");//用章申请
+		add("/admin/oa/apply/leave", OaApplyLeaveController.class,"/apply/leave");//请假申请
 		//流程在线编辑器和流程跟踪所用路由
 		add("/admin/oa/process-instance/highlights",ProcessInstanceHighlightsResource.class);//modeler
 		add("/admin/oa/process-instance/diagram-layout",ProcessInstanceDiagramLayoutResource.class);//modeler
